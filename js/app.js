@@ -26,7 +26,8 @@ function agregarEstudiante() {
     var puntosTecnicos = document.getElementById('puntosTecnicos').value;
     var puntosHSE = document.getElementById('puntosHSE').value;
     var estudiante = "";
-    var filtro = estudiantes.filter(n => { return n.nombre.toLowerCase() == nombre.toLowerCase() }); // filtramos para validar que no haya dos nombres iguales
+    // filtramos para validar que no haya dos nombres iguales
+    var filtro = buscar(nombre, estudiantes);
     if (filtro.length != 0) {
         alert("Ya existe un estudiante con un nombre igual vuelve a intentar :)"); // motramos el mensaje de que ya existe ese nombre
     } else {
