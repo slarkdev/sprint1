@@ -1,8 +1,9 @@
 var estudiantes = [];
-// var dialogo = document.getElementById('dialogo');
+var dialogo = document.getElementById('dialogo');
+// se realizo un total de 16 pruebas unitarias con mocha
 var assert = require('assert'); //llamamos al modulo assert de node js para hacer tdd
 
-function Estudiante(nombre, puntosTecnicos, puntosHSE) {
+function Estudiante(nombre, puntosTecnicos, puntosHSE) { // creamos la clase Estudiante
     this.nombre = nombre;
     this.puntosTecnicos = puntosTecnicos;
     this.puntosHSE = puntosHSE;
@@ -142,16 +143,50 @@ describe("funcion que busca un estudiante ", function() {
 
 function topTecnico(estudiantes) {
     // TO DO: Retornar el arreglo de estudiantes ordenado por puntaje técnico de mayor a menor
-    return estudiantes.sort((n, m) => {
-        return m.puntosTecnicos - n.puntosTecnicos; // ordenamos de mayor a menor
-    });
+    if (Array.isArray(estudiantes)) {
+        return estudiantes.sort((n, m) => {
+            return m.puntosTecnicos - n.puntosTecnicos; // ordenamos de mayor a menor
+        });
+    } else
+        return [];
 }
 //pruebas unitarias para el modulo topTecnico
-
+describe("funcion que lista los estudiantes segun un orden de puntos Tecnicos ", function() {
+    it("el resultado deberia ser un arreglo vacio si estudiantes es un string", function() {
+        var res = topTecnico("string o cadena");
+        assert.deepEqual([], res);
+    });
+    it("el resultado deberia ser un arreglo vacio si no ingresa el parametro estudiantes", function() {
+        var res = topTecnico();
+        assert.deepEqual([], res);
+    });
+    it("el resultado deberia ser un arreglo vacio si ingresa un numero", function() {
+        var res = topTecnico(0);
+        assert.deepEqual([], res);
+    });
+});
 
 function topHSE(estudiantes) {
     // TO DO: Retornar el arreglo de estudiantes ordenado por puntaje de HSE de mayor a menor
-    return estudiantes.sort((n, m) => {
-        return m.puntosHSE - n.puntosHSE; // ordenamos de mayor a menor
-    });
+    if (Array.isArray(estudiantes)) {
+        return estudiantes.sort((n, m) => {
+            return m.puntosHSE - n.puntosHSE; // ordenamos de mayor a menor
+        });
+    } else
+        return [];
 }
+//pruebas unitarias para el modulo topHSE
+describe("funcion que lista los estudiantes segun un orden de puntos HSE ", function() {
+    it("el resultado deberia ser un arreglo vacio si estudiantes es un string", function() {
+        var res = topHSE("string o cadena");
+        assert.deepEqual([], res);
+    });
+    it("el resultado deberia ser un arreglo vacio si no ingresa el parametro estudiantes", function() {
+        var res = topHSE();
+        assert.deepEqual([], res);
+    });
+    it("el resultado deberia ser un arreglo vacio si ingresa un numero", function() {
+        var res = topHSE(0);
+        assert.deepEqual([], res);
+    });
+});
