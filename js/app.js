@@ -82,17 +82,7 @@ function mostrarLista(estudiantes) {
     var resultado = "";
     if (Array.isArray(estudiantes)) {
         estudiantes.forEach((elemento) => {
-            resultado += "<div class='row'>";
-            resultado += "<div class='col m12'>";
-            resultado += "<div class='card blue-grey darken-1'>";
-            resultado += "<div class='card-content white-text'>";
-            resultado += "<p><strong>Nombre:</strong> " + (elemento.nombre != undefined ? elemento.nombre : "Nada para mostrar") + "</p>";
-            resultado += "<p><strong>Puntos Técnicos:</strong> " + (elemento.puntosTecnicos != undefined ? elemento.puntosTecnicos : "Nada para mostrar") + "</p>";
-            resultado += "<p><strong>Puntos HSE:</strong> " + (elemento.puntosHSE != undefined ? elemento.puntosHSE : "Nada para mostrar") + "</p>";
-            resultado += "</div>";
-            resultado += "</div>";
-            resultado += "</div>";
-            resultado += "</div>";
+            resultado += mostrar(elemento);
         })
     }
     return resultado;
