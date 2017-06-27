@@ -1,6 +1,6 @@
 var estudiantes = [];
-var dialogo = document.getElementById('dialogo');
-// var assert = require('assert'); //llamamos al modulo assert de node js para hacer tdd
+// var dialogo = document.getElementById('dialogo');
+var assert = require('assert'); //llamamos al modulo assert de node js para hacer tdd
 
 function Estudiante(nombre, puntosTecnicos, puntosHSE) {
     this.nombre = nombre;
@@ -14,7 +14,7 @@ function obtenerListaEstudiantes() {
 }
 
 function registrarEstudiante() {
-    dialogo.showModal();
+    dialogo.showModal(); // abre el dialogo para registrar un estudiante
 }
 
 function agregarEstudiante() {
@@ -27,7 +27,7 @@ function agregarEstudiante() {
     var estudiante = "";
     var filtro = estudiantes.filter(n => { return n.nombre.toLowerCase() == nombre.toLowerCase() }); // filtramos para validar que no haya dos nombres iguales
     if (filtro.length != 0) {
-        alert("Ya existe un estudiante con un nombre igual vuelve a intentar :)");
+        alert("Ya existe un estudiante con un nombre igual vuelve a intentar :)"); // motramos el mensaje de que ya existe ese nombre
     } else {
         estudiante = new Estudiante(nombre, puntosTecnicos, puntosHSE); //creamos un objeto estudiante
         estudiantes.push(estudiante); // agregamos el objeto al arreglo
@@ -39,48 +39,106 @@ function agregarEstudiante() {
 function mostrar(estudiante) {
     // TO DO: Completar el template para que muestre las propiedades correctas del estudiante 
     var resultado = "";
-    resultado += "<div class='row'>";
-    resultado += "<div class='col m12'>";
-    resultado += "<div class='card blue-grey darken-1'>";
-    resultado += "<div class='card-content white-text'>";
-    resultado += "<p><strong>Nombre:</strong> " + (estudiante.nombre != undefined ? estudiante.nombre : "Nada para mostrar") + "</p>";
-    resultado += "<p><strong>Puntos Técnicos:</strong> " + (estudiante.puntosTecnicos != undefined ? estudiante.puntosTecnicos : "Nada para mostrar") + "</p>";
-    resultado += "<p><strong>Puntos HSE:</strong> " + (estudiante.puntosHSE != undefined ? estudiante.puntosHSE : "Nada para mostrar") + "</p>";
-    resultado += "</div>";
-    resultado += "</div>";
-    resultado += "</div>";
-    resultado += "</div>";
+    if (typeof estudiante == "object" && (estudiante != null || estudiante != undefined) && !Array.isArray(estudiante)) {
+        resultado += "<div class='row'>";
+        resultado += "<div class='col m12'>";
+        resultado += "<div class='card blue-grey darken-1'>";
+        resultado += "<div class='card-content white-text'>";
+        resultado += "<p><strong>Nombre:</strong> " + (estudiante.nombre != undefined ? estudiante.nombre : "Nada para mostrar") + "</p>";
+        resultado += "<p><strong>Puntos Técnicos:</strong> " + (estudiante.puntosTecnicos != undefined ? estudiante.puntosTecnicos : "Nada para mostrar") + "</p>";
+        resultado += "<p><strong>Puntos HSE:</strong> " + (estudiante.puntosHSE != undefined ? estudiante.puntosHSE : "Nada para mostrar") + "</p>";
+        resultado += "</div>";
+        resultado += "</div>";
+        resultado += "</div>";
+        resultado += "</div>";
+    }
     return resultado;
 }
+//pruebas unitarias para posibles entradas del modulo mostrar(estudiante)
+describe("funcion que muestra un estudiante ", function() {
+    it("el resultado deberia ser '' si no se ingresa un objeto estudiante", function() {
+        var res = mostrar();
+        assert.equal('', res);
+    });
+    it("el resultado deberia ser '' si es estudiante es undefined", function() {
+        var res = mostrar(undefined);
+        assert.equal("", res);
+    });
+    it("el resultado deberia ser '' si estudiante es un string", function() {
+        var res = mostrar("hola mundo");
+        assert.equal("", res);
+    });
+    it("el resultado deberia ser '' si estudiante es un array", function() {
+        var res = mostrar([1, 2, 3, 4]);
+        assert.equal("", res);
+    });
+});
 
 function mostrarLista(estudiantes) {
     // TO DO: Iterar la lista del estudiantes para devolverlos en el formato que usa la función mostrar(estudiante)
     // Retornar el template de todos los estudiantes
     var resultado = "";
-    estudiantes.forEach((elemento) => {
-        resultado += "<div class='row'>";
-        resultado += "<div class='col m12'>";
-        resultado += "<div class='card blue-grey darken-1'>";
-        resultado += "<div class='card-content white-text'>";
-        resultado += "<p><strong>Nombre:</strong> " + (elemento.nombre != undefined ? elemento.nombre : "Nada para mostrar") + "</p>";
-        resultado += "<p><strong>Puntos Técnicos:</strong> " + (elemento.puntosTecnicos != undefined ? elemento.puntosTecnicos : "Nada para mostrar") + "</p>";
-        resultado += "<p><strong>Puntos HSE:</strong> " + (elemento.puntosHSE != undefined ? elemento.puntosHSE : "Nada para mostrar") + "</p>";
-        resultado += "</div>";
-        resultado += "</div>";
-        resultado += "</div>";
-        resultado += "</div>";
-    })
+    if (Array.isArray(estudiantes)) {
+        estudiantes.forEach((elemento) => {
+            resultado += "<div class='row'>";
+            resultado += "<div class='col m12'>";
+            resultado += "<div class='card blue-grey darken-1'>";
+            resultado += "<div class='card-content white-text'>";
+            resultado += "<p><strong>Nombre:</strong> " + (elemento.nombre != undefined ? elemento.nombre : "Nada para mostrar") + "</p>";
+            resultado += "<p><strong>Puntos Técnicos:</strong> " + (elemento.puntosTecnicos != undefined ? elemento.puntosTecnicos : "Nada para mostrar") + "</p>";
+            resultado += "<p><strong>Puntos HSE:</strong> " + (elemento.puntosHSE != undefined ? elemento.puntosHSE : "Nada para mostrar") + "</p>";
+            resultado += "</div>";
+            resultado += "</div>";
+            resultado += "</div>";
+            resultado += "</div>";
+        })
+    }
     return resultado;
 }
+//pruebas unitarias para posibles entradas de la funcion mostrarLista(estudiante)
+describe("funcion que muestra la lista de estudiantes ", function() {
+    it("el resultado deberia ser '' si no se ingresa un array de estudiantes", function() {
+        var res = mostrarLista();
+        assert.equal('', res);
+    });
+    it("el resultado deberia ser '' si es estudiante es undefined", function() {
+        var res = mostrarLista(undefined);
+        assert.equal("", res);
+    });
+    it("el resultado deberia ser '' si estudiante es un string", function() {
+        var res = mostrarLista("string de lista de estudiantes");
+        assert.equal("", res);
+    });
+});
+
 
 function buscar(nombre, estudiantes) {
     // TO DO: Buscar el nombre en la lista de estudiantes que se recibe por parámetros
     // Retornar el objeto del estudiante buscado
     // Nota: NO IMPORTA SI EL USUARIO ESCRIBE EL NOMBRE EN MAYÚSCULAS O MINÚSCULAS
-    return estudiantes.filter(elemento => {
-        return nombre.toLowerCase() == elemento.nombre.toLowerCase() // filtramos por aquellos que tengan el mismo nombre eliminamos case sensitive
-    });
+    if (nombre != null && nombre != undefined && nombre != '' && Array.isArray(estudiantes)) {
+        return estudiantes.filter(elemento => {
+            return nombre.toLowerCase() == elemento.nombre.toLowerCase() // filtramos por aquellos que tengan el mismo nombre eliminamos case sensitive
+        });
+    } else
+        return estudiantes;
 }
+//pruebas unitarias para buscar un estudiante
+describe("funcion que busca un estudiante ", function() {
+    it("el resultado deberia ser la lista de estudiantes si no se ingresa un nombre", function() {
+        var res = mostrarLista(estudiantes);
+        assert.equal(estudiantes, res);
+    });
+    it("el resultado deberia ser la lista de estudiantes si estudiante es undefined", function() {
+        var res = mostrarLista(undefined, estudiantes);
+        assert.equal(estudiantes, res);
+    });
+    it("el resultado deberia ser la lista de estudiantes si estudiante es null", function() {
+        var res = mostrarLista(null, estudiantes);
+        assert.equal(estudiantes, res);
+    });
+});
+
 
 function topTecnico(estudiantes) {
     // TO DO: Retornar el arreglo de estudiantes ordenado por puntaje técnico de mayor a menor
@@ -88,6 +146,8 @@ function topTecnico(estudiantes) {
         return m.puntosTecnicos - n.puntosTecnicos; // ordenamos de mayor a menor
     });
 }
+//pruebas unitarias para el modulo topTecnico
+
 
 function topHSE(estudiantes) {
     // TO DO: Retornar el arreglo de estudiantes ordenado por puntaje de HSE de mayor a menor
