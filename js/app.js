@@ -1,5 +1,5 @@
 var estudiantes = [];
-var dialogo = document.getElementById('dialogo');
+var dialogo = document.getElementById('dialogo'); // OJO: comentar esta linea para hacer las pruebas unitarias
 // se realizo un total de 16 pruebas unitarias con mocha
 var assert = require('assert'); //llamamos al modulo assert de node js para hacer tdd
 
