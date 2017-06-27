@@ -24,11 +24,12 @@ function agregarEstudiante() {
     var nombre = document.getElementById('nombre').value; //capturamos los datos
     var puntosTecnicos = document.getElementById('puntosTecnicos').value;
     var puntosHSE = document.getElementById('puntosHSE').value;
-    var estudiante = new Estudiante(nombre, puntosTecnicos, puntosHSE); //creamos un objeto estudiante
+    var estudiante = "";
     var filtro = estudiantes.filter(n => { return n.nombre.toLowerCase() == nombre.toLowerCase() }); // filtramos para validar que no haya dos nombres iguales
     if (filtro.length != 0) {
-        alert("Ya existe un estudiante con un nombre igual vuelve a intentar:)");
+        alert("Ya existe un estudiante con un nombre igual vuelve a intentar :)");
     } else {
+        estudiante = new Estudiante(nombre, puntosTecnicos, puntosHSE); //creamos un objeto estudiante
         estudiantes.push(estudiante); // agregamos el objeto al arreglo
     }
     dialogo.close(); // cerramos el dialogo
@@ -42,9 +43,9 @@ function mostrar(estudiante) {
     resultado += "<div class='col m12'>";
     resultado += "<div class='card blue-grey darken-1'>";
     resultado += "<div class='card-content white-text'>";
-    resultado += "<p><strong>Nombre:</strong> " + estudiante.nombre + "</p>";
-    resultado += "<p><strong>Puntos Técnicos:</strong> " + estudiante.puntosTecnicos + "</p>";
-    resultado += "<p><strong>Puntos HSE:</strong> " + estudiante.puntosHSE + "</p>";
+    resultado += "<p><strong>Nombre:</strong> " + (estudiante.nombre != undefined ? estudiante.nombre : "Nada para mostrar") + "</p>";
+    resultado += "<p><strong>Puntos Técnicos:</strong> " + (estudiante.puntosTecnicos != undefined ? estudiante.puntosTecnicos : "Nada para mostrar") + "</p>";
+    resultado += "<p><strong>Puntos HSE:</strong> " + (estudiante.puntosHSE != undefined ? estudiante.puntosHSE : "Nada para mostrar") + "</p>";
     resultado += "</div>";
     resultado += "</div>";
     resultado += "</div>";
@@ -61,9 +62,9 @@ function mostrarLista(estudiantes) {
         resultado += "<div class='col m12'>";
         resultado += "<div class='card blue-grey darken-1'>";
         resultado += "<div class='card-content white-text'>";
-        resultado += "<p><strong>Nombre:</strong> " + elemento.nombre + "</p>";
-        resultado += "<p><strong>Puntos Técnicos:</strong> " + elemento.puntosTecnicos + "</p>";
-        resultado += "<p><strong>Puntos HSE:</strong> " + elemento.puntosHSE + "</p>";
+        resultado += "<p><strong>Nombre:</strong> " + (elemento.nombre != undefined ? elemento.nombre : "Nada para mostrar") + "</p>";
+        resultado += "<p><strong>Puntos Técnicos:</strong> " + (elemento.puntosTecnicos != undefined ? elemento.puntosTecnicos : "Nada para mostrar") + "</p>";
+        resultado += "<p><strong>Puntos HSE:</strong> " + (elemento.puntosHSE != undefined ? elemento.puntosHSE : "Nada para mostrar") + "</p>";
         resultado += "</div>";
         resultado += "</div>";
         resultado += "</div>";
