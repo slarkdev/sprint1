@@ -32,23 +32,26 @@
                 <button id="top-hse" class="btn-large">Top HSE</button>
             </div>
         </div>
-        <dialog id="dialogo" hide>
-            <div class="modal-content">
-                <h4>Agregar un estudiante</h4>
-                <div class="col s4">
-                    <label for=""> Nombre Estudiante</label>
-                    <input type="text" id="nombre" class="form-control" placeholder="Ingrese el nombre de la estudiante">
+        <dialog id="dialogo" hide style="border: none; border-radius: 10px; ">
+            <div style="background-color: #26a69a;; padding: 10px;  border-radius: 10px; margin-bottom: 25px; color:aliceblue">
+                <h5> Agregar un estudiante</h5>
+            </div>
+            <div>
+                <div class="input-field">
+                    <!--<i class="material-icons prefix">account_circle</i>-->
+                    <label for="nombre" class="active"> Ingrese el nombre de la estudiante</label>
+                    <input id="nombre" type="text" class="validate" maxlength="30">
                 </div>
-                <div class="col s4">
-                    <label for=""> Porcentaje Tecnico</label>
-                    <input type="number" id="puntosTecnicos" class="form-control" placeholder="ingrese su Porcentaje tecnico" min=0 max=100>
+                <div class="input-field">
+                    <label for="puntosTecnicos" class="active"> Ingrese sus puntos tecnicos (0-100)</label>
+                    <input type="range" id="puntosTecnicos" min="0" max="100" style="padding: 15px 0;" />
                 </div>
-                <div class="col s4">
-                    <label for=""> Porcentaje HSE</label>
-                    <input type="number" id="puntosHSE" class="form-control" placeholder="ingrese los puntosHSE" min=0 max=100>
+                <div class="input-field">
+                    <label for="puntosHSE" class="active"> Ingrese los puntos HSE(Habilidades Socio-emocionales) (0-100)</label>
+                    <input type="range" id="puntosHSE" min="0" max="100" style="padding: 15px 0;" />
                 </div>
             </div>
-            <div class="modal-footer">
+            <div align="right">
                 <button id="agregar" class="btn btn-primary">Agregar</button>
                 <button class="btn btn-secondary" onclick="dialogo.close()"> Cancelar</button>
             </div>
